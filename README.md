@@ -220,7 +220,7 @@ Open the workflow and download the required models from the list:
 #### 👁️ Tae for WAN 2.1 (for previews, optional):
 *   [taew2_1.safetensors](<Link Placeholder>)
 
-#### ♾️ SVI 2.0 Pro LoRA (optional, for stylization):
+#### ♾️ SVI 2.0 Pro LoRA:
 *   [SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors](<Link Placeholder>)
 *   [SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors](<Link Placeholder>)
 

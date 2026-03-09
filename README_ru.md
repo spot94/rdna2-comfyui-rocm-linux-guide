@@ -277,3 +277,9 @@ watch -n 1 wc -l ComfyUI/tunableop_results0.csv
 # Добавьте в скрипт запуска
 export PYTORCH_ALLOC_CONF=expandable_segments:True
 # И увеличьте --reserve-vram до 1.5
+```
+
+---
+## **🎉 ФИНАЛ**
+
+Всё готово! Ваша RX 6700 XT (12GB) теперь способна на **генерацию видео с 14B моделью Wan2.2**.

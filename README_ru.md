@@ -161,4 +161,5 @@ chmod +x run_comfyui.sh
 ./run_comfyui.sh
 ```
 Проверьте, что всё работает
+
 ---

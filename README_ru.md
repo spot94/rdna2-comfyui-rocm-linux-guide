@@ -123,11 +123,6 @@ cat > run_comfyui.sh << 'EOF'
 cd ~/ComfyUI # !!! Укажите правильный путь до папки ComfyUI
 source venv/bin/activate
 
-#ROCm paths
-export ROCM_PATH=/opt/rocm
-export HIP_PATH=$ROCM_PATH
-export PATH=$ROCM_PATH/bin:$ROCM_PATH/llvm/bin:$PATH
-
 #AMD GPU setting
 export HIP_VISIBLE_DEVICES=0
 export HSA_OVERRIDE_GFX_VERSION=10.3.0 #  Для RDNA2 всегда должна быть 10.3.0, для RDNA3 11.0.0

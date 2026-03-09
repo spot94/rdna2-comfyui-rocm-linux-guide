@@ -36,7 +36,7 @@ sudo amdgpu-install --usecase=rocm --no-dkms
 ## **Часть 2. Установка базового ComfyUI с использованием виртуального окружения**
 
 ### 2.1 Скачивание ComfyUI и активация venv
-```
+```bash
 #Клонируем репозиторий
 git clone https://github.com/Comfy-Org/ComfyUI.git
 
@@ -61,7 +61,7 @@ pip install --index-url https://download.pytorch.org/whl/rocm7.1 torch==2.10.0 t
 ### 2.3 Установка остальных зависимостей
 
 В скачанном ComfyUI файл `requirements.txt` содержит лишние для нас пакеты torch для карт NVIDIA, нужно предотвратить их установку 
-```
+```bash
 sed -i '/^torch\b/s/^/#/' requirements.txt
 sed -i '/^torchvision\b/s/^/#/' requirements.txt
 sed -i '/^torchaudio\b/s/^/#/' requirements.txt
@@ -78,7 +78,7 @@ numpy>=1.25.0
 ...
 ```
 Запускаем установку зависимотей
-```
+```bash
 pip install -r requirements.txt
 ```
 ### 2.4 Проверка
@@ -108,7 +108,7 @@ python -c "import sageattention; print('✅ SageAttention работает')"
 ## **Часть 4. Создание файла запуска ComfyUI**
 
 Деактивирируем виртуальное окружение и выйдем из папки ComfyUI
-```
+```bash
 deactivate
 cd ..
 ```
@@ -157,19 +157,19 @@ chmod +x run_comfyui.sh
 ## **Часть 5. Настройка ComfyUI под WAN 2.2**
 ### 5.1 Установка кастомных нод
 Перейдите в папку с кастомными нодами
-```
+```bash
 cd ComfyUI/custom_nodes
 ```
 Установите ComfyUI-Manager
-```
+```bash
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 ```
 Установите AMD GPU Monitor
-```
+```bash
 git clone https://github.com/iDAPPA/ComfyUI-AMDGPUMonitor.git
 ```
 Запустите ComfyUI
-```
+```bash
 cd ../..
 ./run_comfyui.sh
 ```
@@ -190,7 +190,44 @@ cd ../..
 Скачайте `I2V WAN 2.2 14B SVI (KJ).json` из репозитория в папку `ComfyUI/user/default/workflows` или просто перетащите файл в окно с открытым интерфейсом ComfyUI
 Если Вы сохранили файл в папку `ComfyUI/user/default/workflows`, workflow появится с списке рабочих процессов слева. Если же Вы перетащили файл в окно, не забудьте его сохранить (Ctrl+S)
 ### 5.3 Скачивание моделей
-Откройте workflow, скачайте необходимые модели из списка справочной ноды
+Откройте workflow, скачайте необходимые модели из списка:
+
+
+#### 🎬 WAN:
+- [(CivitAI) DaSiWa-WAN 2.2 I2V 14B SynthSeduction v9 | Lightspeed | GGUF - Q4 High](https://civitai.com/models/2269796?modelVersionId=2555194)
+- [(CivitAI) DaSiWa-WAN 2.2 I2V 14B SynthSeduction v9 | Lightspeed | GGUF - Q4 Low](https://civitai.com/models/2269796?modelVersionId=2555463)
+#### 🖼️ WAN Vae:
+- [(Hugging Face) Comfy-Org/Wan_2.2_ComfyUI_Repackaged - wan_2.1_vae.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors)
+#### 📝 T5 Text encoder
+- [(Hugging Face) Kijai/WanVideo_comfy - umt5-xxl-enc-fp8_e4m3fn.safetensors](https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-fp8_e4m3fn.safetensors?download=true)
+#### 👁️ Tae for WAN 2.1 (for previews, optional)
+- [(Hugging Face) Kijai/WanVideo_comfy - taew2_1.safetensors](https://huggingface.co/Kijai/WanVideo_comfy/blob/main/taew2_1.safetensors)
+#### ♾️ SVI 2.0 Pro LoRA
+- [(Hugging Face) Kijai/WanVideo_comfy - SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors](https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors?download=true)
+- [(Hugging Face) Kijai/WanVideo_comfy - SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors](https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors?download=true)
+
+### 📁 Структура папок
+
+```
+/path_to_ComfyUI/
+├── models/
+│   ├── unet/
+│   │   ├── DasiwaWAN22I2V14BSynthseduction_q4High.gguf
+│   │   └── DasiwaWAN22I2V14BSynthseduction_q4Low.gguf
+│   ├── text_encoders/
+│   │   └── umt5-xxl-enc-fp8_e4m3fn.safetensors
+│   ├── vae/
+│   │   └── wan_2.1_vae.safetensors
+│   ├── vae_approx/
+│   │   └── taew2_1.safetensors
+│   └── lora/
+│       ├── SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors
+│       └── SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors
+```
+
+После скачивания моделей, обновите вкладку ComfyUI.
+
+**Теперь можно запускать workflow!**
 
 ---
 ## **Часть 6. Ключевые настройки workflow для 12GB**
@@ -223,3 +260,20 @@ Workflow `I2V WAN 2.2 14B SVI (KJ)` использует ноды от KJ WanVid
 | `Enable RifleXRope x2` | `true` (будет использована интерполяция для более быстрой генерации кадров) |
 | `overlap` | `5` - количество кадров для перекрытия между сегментами, обеспечивает плавность перехода между сегментами, но урезает общее количество кадров |
 
+---
+## **Часть 7. Диагностика и мониторинг**
+
+### 7.1 Проверка TunableOp (должен быть файл)
+```bash
+cat ComfyUI/tunableop_results0.csv | head
+```
+Посчитать количество строк в файле tunableop_results0.csv, если число увеличивается, значит TunableOp активен.
+```bash
+#В отдельном окне
+watch -n 1 wc -l ComfyUI/tunableop_results0.csv
+```
+### 7.2 Если OOM
+```bash
+# Добавьте в скрипт запуска
+export PYTORCH_ALLOC_CONF=expandable_segments:True
+# И увеличьте --reserve-vram до 1.5
